@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    container_name: objets-perdus
+    ports:
+      - "8020:8080"
+    restart: unless-stopped

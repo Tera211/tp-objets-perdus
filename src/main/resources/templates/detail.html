@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Detail de l''annonce')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container">
+    <p><a th:href="@{/}">&larr; Retour aux annonces</a></p>
+
+    <div class="card">
+        <span class="tag" th:classappend="${annonce.type.name() == 'PERDU'} ? 'tag-perdu' : 'tag-trouve'"
+              th:text="${annonce.type}">TYPE</span>
+        <span class="tag tag-cat" th:text="${annonce.categorie}">CAT</span>
+        <h1 th:text="${annonce.titre}">Titre</h1>
+        <p class="muted">
+            📍 <span th:text="${annonce.lieu}">lieu</span> ·
+            🗓 <span th:text="${#temporals.format(annonce.dateEvenement, 'dd/MM/yyyy')}">date</span> ·
+            publiee par <span th:text="${annonce.auteur.prenom}">auteur</span>
+        </p>
+        <p th:text="${annonce.description}">description</p>
+    </div>
+
+    <div class="card">
+        <h2>Recuperer cet objet</h2>
+        <div class="alert alert-info">
+            🔒 Pour limiter les arnaques, vous ne contactez jamais directement l'auteur.
+            Votre demande est transmise a un <strong>gestionnaire</strong> de la plateforme
+            qui organisera le retrait.
+        </div>
+
+        <div th:if="${connecte == null}">
+            <p>Vous devez etre connecte pour faire une demande de recuperation.</p>
+            <a class="btn" th:href="@{/connexion}">Se connecter</a>
+        </div>
+
+        <form th:if="${connecte != null}" method="post"
+              th:action="@{/annonces/{id}/recuperer(id=${annonce.id})}">
+            <label>Votre message au gestionnaire (preuves, description, contact)</label>
+            <textarea name="message" required
+                      placeholder="Expliquez pourquoi cet objet vous appartient / comment vous l'avez trouve..."></textarea>
+            <p style="margin-top:12px;">
+                <button type="submit" class="btn">Envoyer la demande de recuperation</button>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

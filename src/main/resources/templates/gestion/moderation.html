@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Moderation des annonces')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container">
+    <h1>Moderation des annonces</h1>
+    <p class="muted">Validez ou rejetez les annonces avant leur publication.</p>
+
+    <div class="card">
+        <div th:if="${#lists.isEmpty(annonces)}" class="alert alert-info">
+            Aucune annonce en attente de validation.
+        </div>
+        <table th:if="${not #lists.isEmpty(annonces)}">
+            <thead>
+            <tr><th>Titre</th><th>Type</th><th>Categorie</th><th>Lieu</th><th>Auteur</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${annonces}">
+                <td><a th:href="@{/annonces/{id}(id=${a.id})}" th:text="${a.titre}">titre</a></td>
+                <td th:text="${a.type}">type</td>
+                <td th:text="${a.categorie}">cat</td>
+                <td th:text="${a.lieu}">lieu</td>
+                <td th:text="${a.auteur.prenom} + ' ' + ${a.auteur.nom}">auteur</td>
+                <td>
+                    <div class="actions">
+                        <form method="post" th:action="@{/gestion/annonces/{id}/valider(id=${a.id})}">
+                            <button class="btn btn-success btn-sm" type="submit">Valider</button>
+                        </form>
+                        <form method="post" th:action="@{/gestion/annonces/{id}/rejeter(id=${a.id})}">
+                            <button class="btn btn-danger btn-sm" type="submit">Rejeter</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

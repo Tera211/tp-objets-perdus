@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mises en relation')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container">
+    <h1>Demandes de recuperation</h1>
+    <p class="muted">
+        Validez la mise en relation pour organiser le retrait, ou refusez si la demande
+        n'est pas legitime. La validation cloture l'annonce concernee.
+    </p>
+
+    <div class="card">
+        <div th:if="${#lists.isEmpty(relations)}" class="alert alert-info">
+            Aucune demande de recuperation en cours.
+        </div>
+        <table th:if="${not #lists.isEmpty(relations)}">
+            <thead>
+            <tr><th>Annonce</th><th>Demandeur</th><th>Contact</th><th>Message</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${relations}">
+                <td><a th:href="@{/annonces/{id}(id=${r.annonce.id})}" th:text="${r.annonce.titre}">annonce</a></td>
+                <td th:text="${r.demandeur.prenom} + ' ' + ${r.demandeur.nom}">demandeur</td>
+                <td th:text="${r.demandeur.telephone}">tel</td>
+                <td th:text="${r.message}">message</td>
+                <td>
+                    <div class="actions">
+                        <form method="post" th:action="@{/gestion/relations/{id}/valider(id=${r.id})}">
+                            <button class="btn btn-success btn-sm" type="submit">Valider</button>
+                        </form>
+                        <form method="post" th:action="@{/gestion/relations/{id}/refuser(id=${r.id})}">
+                            <button class="btn btn-danger btn-sm" type="submit">Refuser</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

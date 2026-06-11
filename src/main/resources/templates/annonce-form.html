@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Declarer une annonce')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container">
+    <h1>Declarer un objet perdu ou retrouve</h1>
+    <div class="alert alert-info">
+        Votre annonce sera publiee apres <strong>validation par un gestionnaire</strong>.
+    </div>
+
+    <div class="card">
+        <form method="post" th:action="@{/annonces/nouvelle}" th:object="${annonce}">
+            <label>Type de declaration</label>
+            <select th:field="*{type}">
+                <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+            </select>
+            <p class="alert alert-error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+
+            <label>Titre</label>
+            <input type="text" th:field="*{titre}" placeholder="Ex : Telephone Samsung noir"/>
+            <p class="alert alert-error" th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}"></p>
+
+            <label>Categorie</label>
+            <select th:field="*{categorie}">
+                <option value="">-- choisir --</option>
+                <option th:each="c : ${categories}" th:value="${c}" th:text="${c}"></option>
+            </select>
+            <p class="alert alert-error" th:if="${#fields.hasErrors('categorie')}" th:errors="*{categorie}"></p>
+
+            <label>Lieu</label>
+            <input type="text" th:field="*{lieu}" placeholder="Ville, quartier"/>
+            <p class="alert alert-error" th:if="${#fields.hasErrors('lieu')}" th:errors="*{lieu}"></p>
+
+            <label>Date (perte ou decouverte)</label>
+            <input type="date" th:field="*{dateEvenement}"/>
+            <p class="alert alert-error" th:if="${#fields.hasErrors('dateEvenement')}" th:errors="*{dateEvenement}"></p>
+
+            <label>Description</label>
+            <textarea th:field="*{description}" placeholder="Decrivez l'objet (couleur, marque, signes distinctifs...)"></textarea>
+            <p class="alert alert-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+            <p style="margin-top:14px;">
+                <button type="submit" class="btn">Publier l'annonce</button>
+                <a class="btn btn-sm" style="background:#6b7785;" th:href="@{/}">Annuler</a>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

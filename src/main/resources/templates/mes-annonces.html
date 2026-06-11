@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mes annonces')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container">
+    <h1>Mes annonces</h1>
+    <p><a class="btn" th:href="@{/annonces/nouvelle}">+ Declarer un objet</a></p>
+
+    <div class="card">
+        <div th:if="${#lists.isEmpty(annonces)}" class="muted">Vous n'avez pas encore d'annonce.</div>
+        <table th:if="${not #lists.isEmpty(annonces)}">
+            <thead>
+            <tr><th>Titre</th><th>Type</th><th>Categorie</th><th>Date</th><th>Statut</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${annonces}">
+                <td><a th:href="@{/annonces/{id}(id=${a.id})}" th:text="${a.titre}">titre</a></td>
+                <td th:text="${a.type}">type</td>
+                <td th:text="${a.categorie}">cat</td>
+                <td th:text="${#temporals.format(a.dateEvenement, 'dd/MM/yyyy')}">date</td>
+                <td>
+                    <span class="statut"
+                          th:classappend="${a.statut.name() == 'EN_ATTENTE'} ? 's-attente' :
+                                          (${a.statut.name() == 'VALIDEE'} ? 's-validee' :
+                                          (${a.statut.name() == 'REJETEE'} ? 's-rejetee' : 's-cloturee'))"
+                          th:text="${a.statut}">statut</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Mes demandes de recuperation</h2>
+    <div class="card">
+        <div th:if="${#lists.isEmpty(demandes)}" class="muted">Aucune demande de recuperation.</div>
+        <table th:if="${not #lists.isEmpty(demandes)}">
+            <thead>
+            <tr><th>Annonce</th><th>Message</th><th>Statut</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="d : ${demandes}">
+                <td><a th:href="@{/annonces/{id}(id=${d.annonce.id})}" th:text="${d.annonce.titre}">annonce</a></td>
+                <td th:text="${#strings.abbreviate(d.message, 60)}">message</td>
+                <td>
+                    <span class="statut"
+                          th:classappend="${d.statut.name() == 'EN_COURS'} ? 's-attente' :
+                                          (${d.statut.name() == 'VALIDEE'} ? 's-validee' : 's-rejetee')"
+                          th:text="${d.statut}">statut</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

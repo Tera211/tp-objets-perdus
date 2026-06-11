@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Connexion')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container" style="max-width:440px;">
+    <h1>Connexion</h1>
+    <div class="card">
+        <div class="alert alert-error" th:if="${erreur}" th:text="${erreur}"></div>
+        <form method="post" th:action="@{/connexion}">
+            <label>Email</label>
+            <input type="email" name="email" required/>
+            <label>Mot de passe</label>
+            <input type="password" name="motDePasse" required/>
+            <p style="margin-top:14px;"><button type="submit" class="btn">Se connecter</button></p>
+        </form>
+        <p class="muted">Pas de compte ? <a th:href="@{/inscription}">Creer un compte</a></p>
+        <p class="muted">Demo gestionnaire : <strong>gestion@demo.bj</strong> / <strong>1234</strong></p>
+    </div>
+</div>
+</body>
+</html>

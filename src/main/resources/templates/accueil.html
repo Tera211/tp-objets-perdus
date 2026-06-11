@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Rechercher un objet')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<div class="container">
+    <h1>Rechercher un objet perdu ou retrouve</h1>
+
+    <div class="card">
+        <form method="get" th:action="@{/}" class="filtres">
+            <div>
+                <label>Mot-cle</label>
+                <input type="text" name="motCle" th:value="${motCle}" placeholder="titre ou description"/>
+            </div>
+            <div>
+                <label>Categorie</label>
+                <select name="categorie">
+                    <option value="">Toutes</option>
+                    <option th:each="c : ${categories}" th:value="${c}" th:text="${c}"
+                            th:selected="${c == categorieFiltre}"></option>
+                </select>
+            </div>
+            <div>
+                <label>Type</label>
+                <select name="type">
+                    <option value="">Tous</option>
+                    <option th:each="t : ${types}" th:value="${t}" th:text="${t}"
+                            th:selected="${t == typeFiltre}"></option>
+                </select>
+            </div>
+            <div>
+                <label>Lieu</label>
+                <input type="text" name="lieu" th:value="${lieuFiltre}" placeholder="ville, quartier"/>
+            </div>
+            <div>
+                <button type="submit" class="btn">Filtrer</button>
+            </div>
+        </form>
+    </div>
+
+    <p class="muted" th:text="${#lists.size(annonces)} + ' annonce(s) trouvee(s)'">0 annonce</p>
+
+    <div th:if="${#lists.isEmpty(annonces)}" class="alert alert-info">
+        Aucune annonce ne correspond a votre recherche.
+    </div>
+
+    <div class="grid">
+        <div class="card" th:each="a : ${annonces}">
+            <span class="tag" th:classappend="${a.type.name() == 'PERDU'} ? 'tag-perdu' : 'tag-trouve'"
+                  th:text="${a.type}">TYPE</span>
+            <span class="tag tag-cat" th:text="${a.categorie}">CAT</span>
+            <h2 style="margin:10px 0 6px;"><a th:href="@{/annonces/{id}(id=${a.id})}" th:text="${a.titre}">Titre</a></h2>
+            <p class="muted" th:text="'📍 ' + ${a.lieu} + ' · ' + ${#temporals.format(a.dateEvenement, 'dd/MM/yyyy')}">lieu</p>
+            <p th:text="${#strings.abbreviate(a.description, 110)}">description</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
