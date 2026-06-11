@@ -57,10 +57,11 @@
 - Enums : Role, TypeAnnonce, StatutAnnonce, Catégorie, StatutRelation
 - (Diagramme entités/relations)
 
-## Diapo 10 — Déploiement
+## Diapo 10 — Déploiement et Démarrage
 - Conteneurisé avec **Docker** (Dockerfile multi-stage + docker-compose)
-- Lancement en une commande : `docker compose up --build`
-- Aucune installation Java requise → http://localhost:8020
+- Intégration de **GitHub Codespaces** pour un lancement 100% en ligne (zéro installation)
+- Lancement local alternatif simple via le Maven Wrapper : `./mvnw spring-boot:run`
+- Options de test flexibles adaptées à chaque correcteur
 
 ## Diapo 11 — Démonstration
 - Déclaration → Modération → Recherche → Récupération → Clôture
@@ -73,8 +74,9 @@
 
 ## Diapo 13 — Conclusion
 - Toutes les exigences du Projet 7 couvertes
-- Architecture claire, sécurisée par la modération
-- Démarrage simple grâce à Docker
+- Architecture claire, sécurisée par la modération et les gestionnaires
+- Démarrage et test simplifiés (Docker & GitHub Codespaces)
+
 
 ## Diapo 14 — Merci
 - Questions ?

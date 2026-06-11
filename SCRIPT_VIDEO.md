@@ -48,9 +48,10 @@ Montrer la page d'accueil avec les annonces déjà publiées.
 
 ### 4:00 — Architecture & déploiement (≈ 30 s)
 - Montrer brièvement le code : packages `entity / repository / service / controller`.
-- Montrer le `Dockerfile` / `docker-compose.yml`.
-> « L'application est en couches Spring Boot et se lance en une seule commande Docker,
-> sans installer Java. »
+- Évoquer la flexibilité du déploiement : Docker, Maven Wrapper local ou GitHub Codespaces.
+> « L'application respecte une architecture en couches Spring Boot. Elle est extrêmement simple à
+> déployer : soit localement via Docker, soit en ligne en un clic grâce à notre configuration GitHub Codespaces. »
+
 
 ### 4:30 — Conclusion (≈ 20 s)
 > « Notre plateforme couvre toutes les exigences : déclaration et recherche d'objets,
