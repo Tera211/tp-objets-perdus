@@ -3,7 +3,25 @@
 ## Plateforme de dépôt et recherche d'objets perdus
 
 **Cours** : Programmation Java EE
-**Membres du groupe** : _(à compléter — 5 maximum)_
+**Membres du groupe** : 
+1- AGBO Harnock
+harnock.agbo80@gmail.com
+0197003181
+
+2 AMETEPE K. Fiacre Mensah
+fiacremen@gmail.com
+0165245562
+
+3- AMOULE Fabrice 
+amoulefab2@gmail.com 
+0167845316
+4-LATOUNDJI Ismaël laismael85@gmail.com 0167865685
+5- OLIHIDE Hamid Achiri 
+olihidehamid@gmail.com
+0167165481
+6- Sufyane MOUFOUTAOU
+sufyaneramseyn@gmail.com
+0154209334
 **Date** : juin 2026
 
 ---
